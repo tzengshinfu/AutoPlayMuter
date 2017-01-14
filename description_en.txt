@@ -1,0 +1,4 @@
+This extension keeps tabs muting til you click on it.
+
+1. All tabs muted by default.
+2. When you click on it, tab will be audible.
