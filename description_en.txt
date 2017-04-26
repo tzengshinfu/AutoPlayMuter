@@ -5,3 +5,6 @@ This extension keeps tabs muting until you click on it.
 
 v1.1.0 Release Notes:
 -Add built-in white list(popular video sites) function.
+
+v1.2.0 Release Notes:
+-Change enable sound function shortcut(mouse click¡÷double click)
