@@ -8,3 +8,6 @@ v1.1.0 Release Notes:
 
 v1.2.0 Release Notes:
 -Change enable sound function shortcut(mouse click¡÷double click)
+
+v1.3.0 Release Notes:
+-Change enable/disable sound function shortcut(double click¡÷triple click)

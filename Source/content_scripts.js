@@ -1,6 +1,9 @@
 function checkDOM() {
-	window.addEventListener("dblclick", function () {
-		chrome.runtime.sendMessage({ clicking: true });
+	window.addEventListener("click", function () {
+		//triple clicks 
+		if (event.detail === 3) {
+			chrome.runtime.sendMessage({ clicking: true });
+		}
 	});
 }
 
