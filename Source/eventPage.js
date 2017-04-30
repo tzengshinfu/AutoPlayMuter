@@ -12,10 +12,12 @@ function muteTab(tab) {
 
 function setTabMuteStatus(tab) {
   tabLists[tab.id] = false;
+  chrome.tabs.update(tab.id, { muted: true });
 
   for (whiteList of whiteLists) {
     if (tab.url.includes(whiteList)) {
       tabLists[tab.id] = true;
+      chrome.tabs.update(tab.id, { muted: false });
       return;
     }
   }
