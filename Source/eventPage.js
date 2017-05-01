@@ -2,36 +2,34 @@ var tabLists = {};
 var whiteLists = ["youtube.com", "netflix.com", "vimeo.com", "screen.yahoo.com", "dailymotion.com", "hulu.com", "vube.com", "twitch.tv", "liveleak.com", "vine.co", "ustream.tv", "break.com", "tv.com", "metacafe.com", "viewster.com", "vevo.com", "viacom.com", "video.aol.com"];
 
 function muteTab(tab) {
-  if (typeof tabLists[tab.id] === "undefined") {
-    chrome.tabs.update(tab.id, { muted: true });
-  }
-  else if (tabLists[tab.id] !== true) {
-    chrome.tabs.update(tab.id, { muted: true });
-  }
-}
+  //not blank page
+  if (tab.url !== "chrome://newtab/") {
+    for (whiteList of whiteLists) {
+      if (tab.url.includes(whiteList)) {
+        tabLists[tab.id] = true;
+        chrome.tabs.update(tab.id, { muted: false });
+        return;
+      }
+    }
 
-function setTabMuteStatus(tab) {
-  tabLists[tab.id] = false;
-  chrome.tabs.update(tab.id, { muted: true });
-
-  for (whiteList of whiteLists) {
-    if (tab.url.includes(whiteList)) {
-      tabLists[tab.id] = true;
-      chrome.tabs.update(tab.id, { muted: false });
-      return;
+    if (typeof tabLists[tab.id] === "undefined") {
+      chrome.tabs.update(tab.id, { muted: true });
+    }
+    else if (tabLists[tab.id] !== true) {
+      chrome.tabs.update(tab.id, { muted: true });
     }
   }
 }
 
 chrome.tabs.onUpdated.addListener(
   function (tabId, changeInfo, tab) {
-    muteTab(tab);
+    muteTab(tab)
   }
 );
 
 chrome.tabs.onCreated.addListener(
   function (tab) {
-    setTabMuteStatus(tab);
+    muteTab(tab);
   }
 );
 
@@ -45,6 +43,6 @@ chrome.runtime.onMessage.addListener(
       else {
         tabLists[sender.tab.id] = true;
         chrome.tabs.update(sender.tab.id, { muted: false });
-      }      
+      }
     }
   });
